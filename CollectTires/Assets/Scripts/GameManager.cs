@@ -13,11 +13,14 @@ public class GameManager : MonoBehaviour
 {
     private LevelManager _levelManager;
     public GameState currentGameState;
+    private UIManager _uiManager;
     // Start is called before the first frame update
     void Start()
     {
         _levelManager = GetComponent<LevelManager>();
+        _uiManager = GameObject.FindWithTag("UI").GetComponent<UIManager>();
         currentGameState = GameState.Pause;
+
     }
 
     public void StartGame()
@@ -46,6 +49,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         _levelManager.EndLevel();
+        _uiManager.EndLevel();
         currentGameState = GameState.End;
     }
     

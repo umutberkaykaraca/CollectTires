@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private GameManager _gameManager;
+    public int tiresCount = 0;
     public float speed;
     public List<GameObject> tires;
     // Start is called before the first frame update
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
                 return;
             }
         }
-        Vector3 moveVector = new Vector3(0, 0, speed*Time.deltaTime);
+        Vector3 moveVector = new Vector3(0, 0, speed * Time.deltaTime);
 
         float diff = 0;
 
@@ -48,18 +49,31 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Collectible"))
         {
             other.transform.SetParent(transform);
+
             tires.Add(other.gameObject);
+
+            tiresCount++;
         }
         
         else if (other.CompareTag("Finish"))
         {
             _gameManager.EndGame();
         }
+
+        else if (other.CompareTag("Side"))
+        {
+            
+        }
+        
         else
         {
             Destroy(tires[tires.Count - 1]);
             tires.RemoveAt(tires.Count - 1);
+
+            tiresCount--;
         }
+            
+        
         
     }
 }
